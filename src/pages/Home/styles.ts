@@ -33,3 +33,19 @@ export const FinanceValueArea = styled.View`
   justify-content: space-between;
   align-items: center;
 `;
+
+export const TitleTransaction = styled.Text`
+  font-family: "Roboto_700Bold";
+  font-size: 21px;
+  opacity: 0.7;
+  margin-top: 15px;
+  margin-left: 15px;
+`;
+
+export const RecentTransaction = styled.View`
+  height: 70px;
+  background-color: black;
+  margin-top: 10px;
+`;
+
+export const Transaction = styled.View``;

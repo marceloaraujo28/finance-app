@@ -10,7 +10,7 @@ export function Home() {
     <S.Container>
       <View
         style={{
-          height: 450,
+          height: 430,
           backgroundColor: "white",
           elevation: 4,
           shadowOffset: { width: 5, height: 5 },
@@ -35,6 +35,32 @@ export function Home() {
             <BalanceFinancial name="Despesas" value={10000} type="down" />
           </S.FinanceValueArea>
         </S.Header>
+      </View>
+      <S.TitleTransaction>Transações Recentes</S.TitleTransaction>
+      <View
+        style={{
+          backgroundColor: "white",
+          elevation: 4,
+          shadowOffset: { width: 5, height: 5 },
+          shadowColor: "black",
+          shadowOpacity: 0.5,
+          shadowRadius: 10,
+          borderTopLeftRadius: 15,
+          borderTopRightRadius: 15,
+          padding: 15,
+          marginTop: 5,
+          flex: 1,
+        }}
+      >
+        <S.RecentTransaction>
+          <S.Transaction></S.Transaction>
+        </S.RecentTransaction>
+        <S.RecentTransaction>
+          <S.Transaction></S.Transaction>
+        </S.RecentTransaction>
+        <S.RecentTransaction>
+          <S.Transaction></S.Transaction>
+        </S.RecentTransaction>
       </View>
     </S.Container>
   );
