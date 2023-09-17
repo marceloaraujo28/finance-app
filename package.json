@@ -11,6 +11,7 @@
   "dependencies": {
     "@expo-google-fonts/roboto": "^0.2.3",
     "@react-navigation/bottom-tabs": "^6.5.8",
+    "@react-navigation/material-top-tabs": "^6.6.3",
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.13",
     "expo": "~48.0.18",
@@ -22,7 +23,9 @@
     "react-native-screens": "~3.20.0",
     "react-native-svg": "13.4.0",
     "react-native-svg-transformer": "^1.1.0",
-    "styled-components": "^6.0.2"
+    "react-native-tab-view": "^3.5.2",
+    "styled-components": "^6.0.2",
+    "react-native-pager-view": "6.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
