@@ -28,6 +28,7 @@ export const Name = styled.Text`
   font-family: "Roboto_500Medium";
   font-size: 14px;
   opacity: 0.7;
+  text-align: center;
 `;
 
 export const Value = styled.Text<{
