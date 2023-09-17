@@ -1,14 +1,6 @@
 import styled from "styled-components/native";
 
-export const Container = styled.View`
-  background-color: #f0f8ff;
-  flex: 1;
-`;
-
-export const Header = styled.View<{
-  top: number;
-}>`
-  margin-top: ${(props) => props.top}px;
+export const Header = styled.View`
   height: 50px;
 `;
 
@@ -41,11 +33,3 @@ export const TitleTransaction = styled.Text`
   margin-top: 15px;
   margin-left: 15px;
 `;
-
-export const RecentTransaction = styled.View`
-  height: 70px;
-  background-color: black;
-  margin-top: 10px;
-`;
-
-export const Transaction = styled.View``;
