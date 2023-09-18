@@ -57,7 +57,6 @@ export function Home() {
       >
         <View
           style={{
-            height: 380,
             backgroundColor: "white",
             elevation: 4,
             shadowOffset: { width: 5, height: 5 },
@@ -66,17 +65,16 @@ export function Home() {
             shadowRadius: 10,
             borderBottomLeftRadius: 15,
             borderBottomRightRadius: 15,
-            paddingLeft: 15,
-            paddingRight: 15,
+            padding: 15,
           }}
         >
           <S.Header>
             <S.Photo>
               <Text>Foto</Text>
             </S.Photo>
-            <S.CardContent>
-              <Card balance={1000} cardName="Marcelo Messias Araújo" />
-            </S.CardContent>
+
+            <Card balance={1000} cardName="Marcelo Messias Araújo" />
+
             <S.FinanceValueArea>
               <BalanceFinancial name="Receitas" value={50000} type="up" />
               <BalanceFinancial name="Despesas" value={10000} type="down" />
@@ -111,21 +109,6 @@ export function Home() {
               />
             );
           })}
-          {/* <FlatList
-            data={test}
-            keyExtractor={(data) => `${data.id}`}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{ paddingBottom: 20 }}
-            renderItem={({ item }) => (
-              <Transaction
-                category={item.category}
-                date={item.date}
-                name={item.name}
-                type={item.type}
-                value={item.value}
-              />
-            )}
-          /> */}
         </View>
       </ScrollView>
     </SafeAreaView>
