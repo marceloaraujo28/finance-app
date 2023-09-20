@@ -1,41 +1,10 @@
 import { FlatList } from "react-native";
 import { BalanceInfo } from "../components/BalanceInfo";
 import * as S from "./styles";
-import { ITransactions } from "../../../../components/Transaction/types";
 import { Transaction } from "../../../../components/Transaction";
-
-type teste = {
-  id: number;
-} & ITransactions;
+import { ListTransactions } from "../../../Home";
 
 export function TransactionTab() {
-  const test: teste[] = [
-    {
-      id: 1,
-      category: "Mercado",
-      date: "12/10/2023",
-      name: "Extra",
-      type: "Cartão",
-      value: 2000,
-    },
-    {
-      id: 2,
-      category: "Lazer",
-      date: "a",
-      name: "Computador FastShop",
-      type: "Cartão",
-      value: 4400,
-    },
-    {
-      id: 3,
-      category: "Saúde",
-      date: "13/10/2023",
-      name: "Exames",
-      type: "Pix",
-      value: 4120,
-    },
-  ];
-
   return (
     <S.GeralContainer>
       <S.Content>
@@ -44,7 +13,7 @@ export function TransactionTab() {
           <BalanceInfo name="Balanço Mensal: " value="-2000" />
         </S.Header>
         <FlatList
-          data={test}
+          data={ListTransactions}
           keyExtractor={(item) => `${item.id}`}
           renderItem={({ item }) => (
             <Transaction
