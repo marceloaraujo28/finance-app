@@ -1,11 +1,4 @@
-import {
-  StatusBar,
-  View,
-  Text,
-  Image,
-  ScrollView,
-  FlatList,
-} from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import * as S from "./styles";
 import { Card } from "../../components/Card";
 import { BalanceFinancial } from "../../components/BalanceFinancial";
@@ -13,38 +6,38 @@ import { Transaction } from "../../components/Transaction";
 import { ITransactions } from "../../components/Transaction/types";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+type teste = {
+  id: number;
+} & ITransactions;
+
+export const ListTransactions: teste[] = [
+  {
+    id: 1,
+    category: "Mercado",
+    date: "12/10/2023",
+    name: "Extra",
+    type: "Cartão",
+    value: 2000,
+  },
+  {
+    id: 2,
+    category: "Lazer",
+    date: "a",
+    name: "Computador FastShop",
+    type: "Cartão",
+    value: 4400,
+  },
+  {
+    id: 3,
+    category: "Saúde",
+    date: "13/10/2023",
+    name: "Exames",
+    type: "Pix",
+    value: 4120,
+  },
+];
+
 export function Home() {
-  type teste = {
-    id: number;
-  } & ITransactions;
-
-  const test: teste[] = [
-    {
-      id: 1,
-      category: "Mercado",
-      date: "12/10/2023",
-      name: "Extra",
-      type: "Cartão",
-      value: 2000,
-    },
-    {
-      id: 2,
-      category: "Lazer",
-      date: "a",
-      name: "Computador FastShop",
-      type: "Cartão",
-      value: 4400,
-    },
-    {
-      id: 3,
-      category: "Saúde",
-      date: "13/10/2023",
-      name: "Exames",
-      type: "Pix",
-      value: 4120,
-    },
-  ];
-
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <ScrollView
@@ -97,7 +90,7 @@ export function Home() {
             flex: 1,
           }}
         >
-          {test.map((item) => {
+          {ListTransactions.map((item) => {
             return (
               <Transaction
                 key={item.id}
