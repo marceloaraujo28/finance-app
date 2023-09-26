@@ -20,8 +20,9 @@ export function TransactionTab() {
               category={item.category}
               date={item.date}
               name={item.name}
-              type={item.type}
+              paymentType={item.paymentType}
               value={item.value}
+              transactionType={item.transactionType}
             />
           )}
         />

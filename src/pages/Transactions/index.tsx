@@ -1,4 +1,3 @@
-import { View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { RouteTabs } from "./route";
 import { Header } from "./components/Header";
