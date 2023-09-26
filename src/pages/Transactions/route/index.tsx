@@ -1,6 +1,6 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { TransactionTab } from "../tabs/TransactionsTab";
-import { RecipesTab } from "../tabs/RecipesTab";
+import { IncomeTab } from "../tabs/IncomeTab";
 import { ExpensesTab } from "../tabs/ExpensesTab";
 import { Dimensions } from "react-native";
 
@@ -34,7 +34,7 @@ export function RouteTabs() {
         options={{
           title: "Receitas",
         }}
-        component={RecipesTab}
+        component={IncomeTab}
       />
       <Tab.Screen
         name="Expenses"
