@@ -13,27 +13,30 @@ type teste = {
 export const ListTransactions: teste[] = [
   {
     id: 1,
-    category: "Mercado",
+    category: "Education",
     date: "12/10/2023",
     name: "Extra",
-    type: "Cartão",
+    paymentType: "Cash",
     value: 2000,
+    transactionType: "income",
   },
   {
     id: 2,
-    category: "Lazer",
+    category: "Food",
     date: "a",
     name: "Computador FastShop",
-    type: "Cartão",
+    paymentType: "Card",
     value: 4400,
+    transactionType: "expense",
   },
   {
     id: 3,
-    category: "Saúde",
+    category: "Health",
     date: "13/10/2023",
     name: "Exames",
-    type: "Pix",
+    paymentType: "PIX",
     value: 4120,
+    transactionType: "income",
   },
 ];
 
@@ -97,8 +100,9 @@ export function Home() {
                 category={item.category}
                 date={item.date}
                 name={item.name}
-                type={item.type}
+                paymentType={item.paymentType}
                 value={item.value}
+                transactionType={item.transactionType}
               />
             );
           })}
