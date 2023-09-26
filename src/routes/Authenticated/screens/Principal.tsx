@@ -5,6 +5,7 @@ import { Transactions } from "../../../pages/Transactions";
 import Octicons from "@expo/vector-icons/Octicons";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { AddTransaction } from "../../../pages/AddTransaction";
 
 export function Principal() {
   const Tab = createBottomTabNavigator();
@@ -32,13 +33,14 @@ export function Principal() {
       />
       <Tab.Screen
         name="AddTransaction"
-        component={Settings}
+        component={AddTransaction}
         options={{
           title: "",
           headerShown: false,
-          tabBarIcon: ({ size }) => (
-            <Ionicons name="add-circle-outline" size={size} />
-          ),
+          tabBarIcon: () => <Ionicons name="add-circle-outline" size={45} />,
+          tabBarItemStyle: {
+            marginTop: -30,
+          },
         }}
       />
       <Tab.Screen
