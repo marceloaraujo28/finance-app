@@ -4,6 +4,7 @@ import * as S from "./styles";
 import { TextInputMask } from "react-native-masked-text";
 import { Dropdown } from "../../components/Dropdown";
 import { ICategoryItem, IPaymentMethods, ITransactionTypes } from "./types";
+import { ScrollView, Text } from "react-native";
 
 const categoriesArray: ICategoryItem[] = [
   { id: 1, label: "Moradia", value: "Housing" },
@@ -52,7 +53,14 @@ export function AddTransaction() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#32cd32" }}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: `${
+          transactionType === "income" ? "#32cd32" : "#ad2a0a"
+        }`,
+      }}
+    >
       <S.Header>
         <TextInputMask
           placeholder="0,00"
@@ -70,29 +78,39 @@ export function AddTransaction() {
         />
       </S.Header>
       <S.InputContent>
-        <S.Dropdown>
-          <Dropdown
-            value={transactionType}
-            Items={transactionTypeArray}
-            onChangeValue={handleChangeTransactionType}
-          />
-        </S.Dropdown>
-        <S.Input placeholder="Nome da transação" onChangeText={setName} />
-        <S.Input placeholder="Descrição" onChangeText={setDescription} />
-        <S.Dropdown>
-          <Dropdown
-            value={categorie}
-            Items={categoriesArray}
-            onChangeValue={handleChangeCategorie}
-          />
-        </S.Dropdown>
-        <S.Dropdown>
-          <Dropdown
-            value={paymentMethod}
-            Items={paymentMethods}
-            onChangeValue={handleChangePaymentMethod}
-          />
-        </S.Dropdown>
+        <ScrollView>
+          <S.Title>Tipo da transação: </S.Title>
+          <S.Dropdown>
+            <Dropdown
+              value={transactionType}
+              Items={transactionTypeArray}
+              onChangeValue={handleChangeTransactionType}
+            />
+          </S.Dropdown>
+          <S.Title>Nome da transação: </S.Title>
+          <S.Input onChangeText={setName} />
+          <S.Title>Descrição: </S.Title>
+          <S.Input onChangeText={setDescription} />
+          <S.Title>Categoria: </S.Title>
+          <S.Dropdown>
+            <Dropdown
+              value={categorie}
+              Items={categoriesArray}
+              onChangeValue={handleChangeCategorie}
+            />
+          </S.Dropdown>
+          <S.Title>Metodo de pagamento: </S.Title>
+          <S.Dropdown>
+            <Dropdown
+              value={paymentMethod}
+              Items={paymentMethods}
+              onChangeValue={handleChangePaymentMethod}
+            />
+          </S.Dropdown>
+          <S.Button>
+            <Text>Registrar</Text>
+          </S.Button>
+        </ScrollView>
       </S.InputContent>
     </SafeAreaView>
   );
