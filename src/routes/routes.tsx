@@ -1,7 +1,8 @@
+import { useAuthContext } from "../context/AuthContext";
 import { Authenticated } from "./Authenticated";
 import { Unauthenticated } from "./Unauthenticated";
 
 export function Routes() {
-  const user = false;
-  return user ? <Authenticated /> : <Unauthenticated />;
+  const { session } = useAuthContext();
+  return session ? <Authenticated /> : <Unauthenticated />;
 }

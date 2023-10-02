@@ -25,8 +25,10 @@ export function Transaction({
         <S.TransactionCategory>{`${category} | ${date}`}</S.TransactionCategory>
       </S.TransactionInfo>
       <S.TransactionValueInfo>
-        <S.TransactionValue>R${value}</S.TransactionValue>
-        <S.TransactionType>{paymentType}</S.TransactionType>
+        <S.TransactionValue type={transactionType}>
+          R${value}
+        </S.TransactionValue>
+        <S.paymentType>{paymentType}</S.paymentType>
       </S.TransactionValueInfo>
     </S.RecentTransaction>
   );
