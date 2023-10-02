@@ -66,11 +66,15 @@ export const PasswordInput = styled.TextInput<{
   border-radius: 5px;
   border-color: ${(props) => (props.focusable ? "#2754cf" : "#a1a1a1")};
 `;
-export const ButtonLogin = styled.TouchableOpacity`
+export const ButtonLogin = styled.TouchableOpacity<{
+  disabled: boolean;
+}>`
   background-color: #2754cf;
+  opacity: ${(props) => (props.disabled ? 0.8 : 1)};
   padding: 3%;
   align-items: center;
   justify-content: center;
+  flex-direction: row;
   border-radius: 5px;
   margin-top: 10px;
 `;

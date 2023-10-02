@@ -1,5 +1,4 @@
 import React from "react";
-import { Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -26,7 +25,7 @@ export function Welcome() {
       </S.LogoContent>
       <S.MessageContainer delay={600} animation="fadeInUp">
         <S.Message>Monitore, organize seus gastos de qualquer lugar!</S.Message>
-        <S.Access>Faça login para acessar</S.Access>
+        <S.Access>Faça login para acessar </S.Access>
 
         <S.ButtonContainer onPress={handleClickAcess}>
           <S.ButtonText>Acessar</S.ButtonText>

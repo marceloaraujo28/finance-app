@@ -9,6 +9,7 @@ import {
   Roboto_700Bold,
 } from "@expo-google-fonts/roboto";
 import { ActivityIndicator, View } from "react-native";
+import { AuthProvider } from "./src/context/AuthContext";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -26,9 +27,11 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <StatusBar translucent style="dark" />
-      <Routes />
-    </NavigationContainer>
+    <AuthProvider>
+      <NavigationContainer>
+        <StatusBar translucent style="dark" />
+        <Routes />
+      </NavigationContainer>
+    </AuthProvider>
   );
 }

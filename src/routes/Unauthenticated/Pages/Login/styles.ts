@@ -53,6 +53,7 @@ export const ButtonLogin = styled.TouchableOpacity`
   padding: 3%;
   align-items: center;
   justify-content: center;
+  flex-direction: row;
   border-radius: 5px;
   margin-top: 10px;
 `;
