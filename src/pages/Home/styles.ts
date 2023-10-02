@@ -1,7 +1,8 @@
 import styled from "styled-components/native";
 
 export const Header = styled.View`
-  height: 50px;
+  flex-direction: column;
+  gap: 15px;
 `;
 
 export const Photo = styled.View`
@@ -14,13 +15,7 @@ export const Photo = styled.View`
   justify-content: center;
 `;
 
-export const CardContent = styled.View`
-  margin-top: 25px;
-`;
-
 export const FinanceValueArea = styled.View`
-  height: 80px;
-  margin-top: 17px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;

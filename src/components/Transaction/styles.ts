@@ -41,13 +41,15 @@ export const TransactionValueInfo = styled.View`
   min-width: 100px;
 `;
 
-export const TransactionValue = styled.Text`
+export const TransactionValue = styled.Text<{
+  type: "income" | "expense";
+}>`
   font-family: "Roboto_500Medium";
   font-size: 14px;
-  color: #228b22;
+  color: ${(props) => (props.type === "income" ? "#228b22" : "#FF0000")};
 `;
 
-export const TransactionType = styled.Text`
+export const paymentType = styled.Text`
   font-family: "Roboto_400Regular";
   font-size: 12px;
 `;

@@ -1,14 +1,30 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Login } from "../../pages/login";
+import { createStackNavigator } from "@react-navigation/stack";
+import { Login } from "./Pages/Login";
+import { Welcome } from "./Pages/Welcome";
+import { Register } from "./Pages/Register";
+
+const Stack = createStackNavigator<UnauthenticatedStackParamList>();
 
 export function Unauthenticated() {
-  const Stack = createNativeStackNavigator();
-
   return (
     <Stack.Navigator>
       <Stack.Screen
+        name="Welcome"
+        component={Welcome}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
         name="Login"
         component={Login}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Register"
+        component={Register}
         options={{
           headerShown: false,
         }}

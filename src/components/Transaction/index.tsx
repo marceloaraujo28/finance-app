@@ -6,8 +6,9 @@ export function Transaction({
   category,
   date,
   name,
-  type,
+  paymentType,
   value,
+  transactionType,
 }: ITransactions) {
   return (
     <S.RecentTransaction>
@@ -24,8 +25,10 @@ export function Transaction({
         <S.TransactionCategory>{`${category} | ${date}`}</S.TransactionCategory>
       </S.TransactionInfo>
       <S.TransactionValueInfo>
-        <S.TransactionValue>R${value}</S.TransactionValue>
-        <S.TransactionType>{type}</S.TransactionType>
+        <S.TransactionValue type={transactionType}>
+          R${value}
+        </S.TransactionValue>
+        <S.paymentType>{paymentType}</S.paymentType>
       </S.TransactionValueInfo>
     </S.RecentTransaction>
   );
