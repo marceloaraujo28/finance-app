@@ -23,7 +23,6 @@ export function AuthProvider({ children }: { children: ReactElement }) {
 
   async function RestoreSession() {
     const { data } = await supabase.auth.getSession();
-
     setSession(data.session);
   }
 

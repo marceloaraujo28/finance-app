@@ -5,16 +5,17 @@ export type Category =
   | "Health"
   | "Education"
   | "Leisure"
+  | "Work"
   | "Others";
 
 export type PaymentMethod = "Card" | "PIX" | "Cash" | "Other";
 
 export type Transaction = "income" | "expense";
 export interface ITransactions {
-  value: number;
+  value: string;
   name: string;
   category: Category;
-  date: string;
+  date?: string;
   description?: string;
   paymentType: PaymentMethod;
   transactionType: Transaction;

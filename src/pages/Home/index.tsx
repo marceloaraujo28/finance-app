@@ -5,6 +5,7 @@ import { BalanceFinancial } from "../../components/BalanceFinancial";
 import { Transaction } from "../../components/Transaction";
 import { ITransactions } from "../../components/Transaction/types";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAuthContext } from "../../context/AuthContext";
 
 type teste = {
   id: number;
@@ -17,7 +18,7 @@ export const ListTransactions: teste[] = [
     date: "12/10/2023",
     name: "Extra",
     paymentType: "Cash",
-    value: 2000,
+    value: "2000",
     transactionType: "income",
   },
   {
@@ -26,7 +27,7 @@ export const ListTransactions: teste[] = [
     date: "a",
     name: "Computador FastShop",
     paymentType: "Card",
-    value: 4400,
+    value: "4400",
     transactionType: "expense",
   },
   {
@@ -35,7 +36,7 @@ export const ListTransactions: teste[] = [
     date: "13/10/2023",
     name: "Exames",
     paymentType: "PIX",
-    value: 4120,
+    value: "4120",
     transactionType: "income",
   },
 ];
