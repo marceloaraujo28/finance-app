@@ -61,6 +61,7 @@ export function Login() {
         <S.PasswordInput
           placeholder="Digite sua senha"
           selectionColor="#2754cf"
+          secureTextEntry
           onChangeText={setPassword}
           onBlur={() => setPasswordFocused(false)}
           onFocus={() => setPasswordFocused(true)}
