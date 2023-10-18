@@ -6,6 +6,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { supabase } from "../../../../config/supabaseConfig";
 import { ActivityIndicator, Alert } from "react-native";
 import { useAuthContext } from "../../../../context/AuthContext";
+import { useGetProfile } from "../../../../hooks/useGetProfile";
 
 export function Login() {
   const [email, setEmail] = useState("");
@@ -14,7 +15,7 @@ export function Login() {
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { setSession } = useAuthContext();
+  const { setSession, setProfile } = useAuthContext();
 
   const navigation =
     useNavigation<
@@ -33,6 +34,16 @@ export function Login() {
       setLoading(false);
       return;
     }
+
+    const profile = await useGetProfile(data.user.id);
+
+    if (profile) {
+      setProfile({
+        name: profile.name,
+        lastName: profile.lastName,
+      });
+    }
+
     setSession(data.session);
     setLoading(false);
   }

@@ -6,8 +6,8 @@ export const Header = styled.View`
 `;
 
 export const Photo = styled.View`
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   background-color: #2f2762;
   border-radius: 35px;
   border: 2px solid #000;
@@ -27,4 +27,16 @@ export const TitleTransaction = styled.Text`
   opacity: 0.7;
   margin-top: 15px;
   margin-left: 15px;
+`;
+
+export const PhotoName = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const UserName = styled.Text`
+  color: black;
+  font-size: 18px;
+  margin-left: 10px;
+  flex: 1;
 `;

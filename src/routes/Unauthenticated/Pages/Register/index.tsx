@@ -38,20 +38,33 @@ export function Register() {
       password,
     });
 
-    const { error: errorInsert } = await supabase.from("profile").insert({
-      userId: data.user?.id,
-      name,
-      lastName,
-    });
-
     if (errorAuth) {
       Alert.alert(errorAuth.message);
       setLoading(false);
       return;
     }
 
+    const { error: errorInsert } = await supabase.from("profile").insert({
+      userId: data.user?.id,
+      name,
+      lastName,
+    });
+
     if (errorInsert) {
       Alert.alert(errorInsert.message);
+      setLoading(false);
+      return;
+    }
+
+    const { error: errorInsertBalance } = await supabase
+      .from("balance")
+      .insert({
+        userId: data.user?.id,
+        balance: "0",
+      });
+
+    if (errorInsertBalance) {
+      Alert.alert(errorInsertBalance.message);
       setLoading(false);
       return;
     }

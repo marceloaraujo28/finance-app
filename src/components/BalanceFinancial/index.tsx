@@ -1,6 +1,7 @@
 import * as S from "./styles";
 import UpArrow from "../../../assets/upArrow.svg";
 import DownArrow from "../../../assets/downArrow.svg";
+import { formatValue } from "../../utils/formatValue";
 
 interface BalanceFinancialProps {
   name: string;
@@ -9,6 +10,8 @@ interface BalanceFinancialProps {
 }
 
 export function BalanceFinancial({ name, value, type }: BalanceFinancialProps) {
+  const valueToStringAndFormatted = value ? formatValue(String(value)) : "0";
+
   return (
     <S.BalanceFinancial>
       <S.Icon type={type}>
@@ -20,7 +23,7 @@ export function BalanceFinancial({ name, value, type }: BalanceFinancialProps) {
       </S.Icon>
       <S.Info>
         <S.Name>{name}</S.Name>
-        <S.Value type={type}>{`R$${value | 0}`}</S.Value>
+        <S.Value type={type}>{`R$${valueToStringAndFormatted}`}</S.Value>
       </S.Info>
     </S.BalanceFinancial>
   );

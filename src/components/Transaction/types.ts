@@ -15,7 +15,7 @@ export interface ITransactions {
   value: string;
   name: string;
   category: Category;
-  date?: string;
+  created_at?: string;
   description?: string;
   paymentType: PaymentMethod;
   transactionType: Transaction;

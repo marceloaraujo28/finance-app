@@ -2,17 +2,13 @@ import { Session } from "@supabase/supabase-js";
 import { ReactElement, createContext, useContext, useState } from "react";
 import { useEffect } from "react";
 import { supabase } from "../config/supabaseConfig";
-
-export type Profile = {
-  name: string;
-  lastName: string;
-};
+import { ProfileData, useGetProfile } from "../hooks/useGetProfile";
 
 export type IAuth = {
   setSession: React.Dispatch<React.SetStateAction<Session | null>>;
   session: Session | null;
-  profile: Profile;
-  setProfile: React.Dispatch<React.SetStateAction<Profile>>;
+  profile: ProfileData | null;
+  setProfile: (value: React.SetStateAction<ProfileData | null>) => void;
 };
 
 export const AuthContext = createContext<IAuth | null>(null);
@@ -27,7 +23,7 @@ export function useAuthContext() {
 
 export function AuthProvider({ children }: { children: ReactElement }) {
   const [session, setSession] = useState<Session | null>(null);
-  const [profile, setProfile] = useState<Profile>({
+  const [profile, setProfile] = useState<ProfileData | null>({
     name: "",
     lastName: "",
   });
@@ -35,22 +31,22 @@ export function AuthProvider({ children }: { children: ReactElement }) {
   async function RestoreSession() {
     const { data } = await supabase.auth.getSession();
 
-    const { data: Profile } = await supabase
-      .from("profile")
-      .select("*")
-      .eq("userId", session?.user.id);
-
-    if (Profile) {
-      const { name, lastName } = Profile?.[0] as Profile;
-      setProfile({ name, lastName });
-    }
+    if (!data) return;
 
     setSession(data.session);
+    if (!!data.session?.user.id) {
+      const getProfile = await useGetProfile(data.session?.user.id);
+      if (getProfile)
+        setProfile({
+          name: getProfile.name,
+          lastName: getProfile.lastName,
+        });
+    }
   }
 
   useEffect(() => {
     RestoreSession();
-  }, [session]);
+  }, []);
 
   return (
     <AuthContext.Provider value={{ session, setSession, profile, setProfile }}>

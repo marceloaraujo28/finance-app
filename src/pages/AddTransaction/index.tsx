@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as S from "./styles";
 import { TextInputMask } from "react-native-masked-text";
 import { Dropdown } from "../../components/Dropdown";
 import { ICategoryItem, IPaymentMethods, ITransactionTypes } from "./types";
-import { ScrollView, Text } from "react-native";
+import { ScrollView, Text, TextInput } from "react-native";
 import { insertTable } from "./hooks/insertTable";
 import {
   Category,
@@ -38,7 +38,6 @@ const paymentMethods: IPaymentMethods[] = [
 
 export function AddTransaction() {
   const { session } = useAuthContext();
-
   const [value, setValue] = useState("0");
   const [categorie, setCategorie] = useState<Category>(
     categoriesArray[0].value
@@ -47,13 +46,7 @@ export function AddTransaction() {
   const [description, setDescription] = useState("");
   const [transactionType, setTransactionType] = useState<Transaction>("income");
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("Cash");
-  const disableButton =
-    !value ||
-    !categorie ||
-    !name ||
-    !description ||
-    !transactionType ||
-    !paymentMethod;
+  const disableButton = !value || !categorie || !name || !description;
 
   const handleChangeCategorie = (categorie: string) => {
     setCategorie(categorie as Category);
@@ -68,9 +61,11 @@ export function AddTransaction() {
   };
 
   const handleNumberChange = (value: string) => {
-    const formatted = value.replace(/[^\d.,]/g, "").replace(",", ".");
+    const formatted = value
+      .replace("R$", "")
+      .replace(/\./g, "")
+      .replace(",", ".");
 
-    console.log(formatted);
     setValue(formatted);
   };
 
@@ -84,6 +79,7 @@ export function AddTransaction() {
       userId: session?.user.id as string,
       description,
     });
+
     setValue("0");
     setName("");
     setDescription("");
@@ -124,9 +120,9 @@ export function AddTransaction() {
             />
           </S.Dropdown>
           <S.Title>Nome da transação: </S.Title>
-          <S.Input onChangeText={setName} />
+          <S.Input onChangeText={setName} value={name} />
           <S.Title>Descrição: </S.Title>
-          <S.Input onChangeText={setDescription} />
+          <S.Input onChangeText={setDescription} value={description} />
           <S.Title>Categoria: </S.Title>
           <S.Dropdown>
             <Dropdown

@@ -6,6 +6,7 @@ import Octicons from "@expo/vector-icons/Octicons";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { AddTransaction } from "../../../pages/AddTransaction";
+import IconAdd from "../../../assets/add.svg";
 
 export function Principal() {
   const Tab = createBottomTabNavigator();
@@ -17,7 +18,13 @@ export function Principal() {
         component={Home}
         options={{
           headerShown: false,
-          tabBarIcon: ({ size }) => <Octicons name="home" size={size} />,
+          tabBarIcon: ({ size, focused }) => (
+            <Octicons
+              name="home"
+              size={size}
+              color={`${focused ? "#1749d1" : "#000"}`}
+            />
+          ),
         }}
       />
       <Tab.Screen
@@ -26,8 +33,12 @@ export function Principal() {
         options={{
           title: "Transações",
           headerShown: false,
-          tabBarIcon: ({ size }) => (
-            <Octicons name="arrow-switch" size={size} />
+          tabBarIcon: ({ size, focused }) => (
+            <Octicons
+              name="arrow-switch"
+              size={size}
+              color={`${focused ? "#1749d1" : "#000"}`}
+            />
           ),
         }}
       />
@@ -37,7 +48,13 @@ export function Principal() {
         options={{
           title: "",
           headerShown: false,
-          tabBarIcon: () => <Ionicons name="add-circle-outline" size={45} />,
+          tabBarIcon: ({ focused }) => (
+            <IconAdd
+              width={45}
+              height={45}
+              fill={`${focused ? "#1749d1" : "#000"}`}
+            />
+          ),
           tabBarItemStyle: {
             marginTop: -30,
           },
@@ -49,7 +66,13 @@ export function Principal() {
         options={{
           title: "Outros",
           headerShown: false,
-          tabBarIcon: ({ size }) => <AntDesign name="bars" size={size} />,
+          tabBarIcon: ({ size, focused }) => (
+            <AntDesign
+              name="bars"
+              size={size}
+              color={`${focused ? "#1749d1" : "#000"}`}
+            />
+          ),
         }}
       />
       <Tab.Screen
@@ -58,7 +81,13 @@ export function Principal() {
         options={{
           title: "Configurações",
           headerShown: false,
-          tabBarIcon: ({ size }) => <Octicons name="gear" size={size} />,
+          tabBarIcon: ({ size, focused }) => (
+            <Octicons
+              name="gear"
+              size={size}
+              color={`${focused ? "#1749d1" : "#000"}`}
+            />
+          ),
         }}
       />
     </Tab.Navigator>
