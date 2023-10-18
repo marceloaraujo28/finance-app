@@ -16,10 +16,14 @@ export const Name = styled.Text`
   font-family: "Roboto_500Medium";
   color: #4b4646;
 `;
-export const Value = styled.Text`
+export const Value = styled.Text<{
+  value: number;
+  transactionType?: string;
+}>`
   font-family: "Roboto_500Medium";
   font-size: 13px;
+  color: ${(props) =>
+    props.value >= 0 && props.transactionType !== "expense"
+      ? "#228b22"
+      : "#FF0000"};
 `;
-
-// Roboto_500Medium,
-//   Roboto_700Bold,

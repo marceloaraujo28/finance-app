@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as S from "./styles";
 import { TextInputMask } from "react-native-masked-text";
 import { Dropdown } from "../../components/Dropdown";
 import { ICategoryItem, IPaymentMethods, ITransactionTypes } from "./types";
-import { ScrollView, Text } from "react-native";
+import { ScrollView, Text, TextInput } from "react-native";
+import { insertTable } from "./hooks/insertTable";
+import {
+  Category,
+  PaymentMethod,
+  Transaction,
+} from "../../components/Transaction/types";
+import { useAuthContext } from "../../context/AuthContext";
 
 const categoriesArray: ICategoryItem[] = [
   { id: 1, label: "Moradia", value: "Housing" },
@@ -13,6 +20,7 @@ const categoriesArray: ICategoryItem[] = [
   { id: 4, label: "Saúde", value: "Health" },
   { id: 5, label: "Educação", value: "Education" },
   { id: 6, label: "Lazer", value: "Leisure" },
+  { id: 6, label: "Trabalho", value: "Work" },
   { id: 7, label: "Outros", value: "Others" },
 ];
 
@@ -29,27 +37,52 @@ const paymentMethods: IPaymentMethods[] = [
 ];
 
 export function AddTransaction() {
+  const { session } = useAuthContext();
   const [value, setValue] = useState("0");
-  const [categorie, setCategorie] = useState<string>(categoriesArray[0].value);
+  const [categorie, setCategorie] = useState<Category>(
+    categoriesArray[0].value
+  );
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [transactionType, setTransactionType] = useState<string>("income");
-  const [paymentMethod, setPaymentMethod] = useState<string>("cash");
+  const [transactionType, setTransactionType] = useState<Transaction>("income");
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("Cash");
+  const disableButton = !value || !categorie || !name || !description;
 
   const handleChangeCategorie = (categorie: string) => {
-    setCategorie(categorie);
+    setCategorie(categorie as Category);
   };
 
   const handleChangeTransactionType = (type: string) => {
-    setTransactionType(type);
+    setTransactionType(type as Transaction);
   };
 
   const handleChangePaymentMethod = (payment: string) => {
-    setPaymentMethod(payment);
+    setPaymentMethod(payment as PaymentMethod);
   };
 
-  const handleNumberChange = (formatted?: string) => {
-    setValue(formatted ?? "0");
+  const handleNumberChange = (value: string) => {
+    const formatted = value
+      .replace("R$", "")
+      .replace(/\./g, "")
+      .replace(",", ".");
+
+    setValue(formatted);
+  };
+
+  const handleInsertData = async () => {
+    await insertTable({
+      value,
+      category: categorie,
+      name,
+      paymentType: paymentMethod,
+      transactionType,
+      userId: session?.user.id as string,
+      description,
+    });
+
+    setValue("0");
+    setName("");
+    setDescription("");
   };
 
   return (
@@ -69,7 +102,6 @@ export function AddTransaction() {
             precision: 2,
             separator: ",",
             delimiter: ".",
-            unit: "R$",
           }}
           value={value}
           onChangeText={handleNumberChange}
@@ -88,9 +120,9 @@ export function AddTransaction() {
             />
           </S.Dropdown>
           <S.Title>Nome da transação: </S.Title>
-          <S.Input onChangeText={setName} />
+          <S.Input onChangeText={setName} value={name} />
           <S.Title>Descrição: </S.Title>
-          <S.Input onChangeText={setDescription} />
+          <S.Input onChangeText={setDescription} value={description} />
           <S.Title>Categoria: </S.Title>
           <S.Dropdown>
             <Dropdown
@@ -107,7 +139,7 @@ export function AddTransaction() {
               onChangeValue={handleChangePaymentMethod}
             />
           </S.Dropdown>
-          <S.Button>
+          <S.Button onPress={handleInsertData} disabled={disableButton}>
             <Text>Registrar</Text>
           </S.Button>
         </ScrollView>

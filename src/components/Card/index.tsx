@@ -1,19 +1,22 @@
 import * as S from "./styles";
 import VisaIcon from "../../../assets/visa.svg";
 import ChipCard from "../../../assets/chipcard.svg";
+import { formatValue } from "../../utils/formatValue";
 
 interface CardProps {
-  balance: number;
+  balance?: string;
   cardName: string;
 }
 
 export function Card({ balance, cardName }: CardProps) {
+  const valueFomartted = balance ? formatValue(balance) : "0";
+
   return (
     <S.Card>
       <S.InfosCard>
         <S.LeftCard>
           <S.TextBalance>Saldo na Conta</S.TextBalance>
-          <S.ValueBalance>{`R$${balance || 0}`}</S.ValueBalance>
+          <S.ValueBalance>{`R$${valueFomartted}`}</S.ValueBalance>
         </S.LeftCard>
         <S.RightCard>
           <ChipCard width={50} height={50} />

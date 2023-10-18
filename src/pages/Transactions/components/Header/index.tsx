@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import * as S from "./styles";
 import { MonthPicker } from "../../../../components/MonthPicker";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useTransactionContext } from "../../context";
 
 export function Header() {
-  const [date, setDate] = useState(new Date());
+  const { date, setDate } = useTransactionContext();
 
   return (
     <S.Container>

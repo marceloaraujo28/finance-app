@@ -3,44 +3,65 @@ import * as S from "./styles";
 import { Card } from "../../components/Card";
 import { BalanceFinancial } from "../../components/BalanceFinancial";
 import { Transaction } from "../../components/Transaction";
-import { ITransactions } from "../../components/Transaction/types";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-type teste = {
-  id: number;
-} & ITransactions;
-
-export const ListTransactions: teste[] = [
-  {
-    id: 1,
-    category: "Education",
-    date: "12/10/2023",
-    name: "Extra",
-    paymentType: "Cash",
-    value: 2000,
-    transactionType: "income",
-  },
-  {
-    id: 2,
-    category: "Food",
-    date: "a",
-    name: "Computador FastShop",
-    paymentType: "Card",
-    value: 4400,
-    transactionType: "expense",
-  },
-  {
-    id: 3,
-    category: "Health",
-    date: "13/10/2023",
-    name: "Exames",
-    paymentType: "PIX",
-    value: 4120,
-    transactionType: "income",
-  },
-];
+import { useAuthContext } from "../../context/AuthContext";
+import { useState } from "react";
+import { SearchRecentsData, searchRecents } from "./hooks/searchRecents";
+import { useFocusEffect } from "@react-navigation/native";
+import { useGetBalance } from "../../hooks/useGetBalance";
+import { supabase } from "../../config/supabaseConfig";
+import { useGetIncomeAndExpense } from "../../hooks/useGetIncomeAndExpense";
 
 export function Home() {
+  const [recentsData, setRecentsData] = useState<SearchRecentsData[] | null>(
+    []
+  );
+  const { profile, session } = useAuthContext();
+  const [balance, setBalance] = useState<string | undefined>("");
+  const [incomeTotal, setIncomeTotal] = useState<number>(0);
+  const [expensesTotal, setExpensesTotal] = useState<number>(0);
+
+  async function recentslist() {
+    if (session?.user.id) {
+      const data = await searchRecents(session.user.id);
+      if (JSON.stringify(data) !== JSON.stringify(recentsData)) {
+        setRecentsData(data);
+      }
+    }
+  }
+
+  async function getBalance() {
+    if (session?.user.id) {
+      const balanceData = await useGetBalance(session.user.id);
+      if (balance !== balanceData?.balance) {
+        setBalance(balanceData?.balance);
+      }
+    }
+  }
+
+  async function getIncomeAndExpense() {
+    const date = new Date();
+    const value = await useGetIncomeAndExpense({
+      month: date.getMonth() + 1,
+      userId: session?.user.id,
+      year: date.getFullYear(),
+    });
+
+    if (incomeTotal !== value?.income) {
+      setIncomeTotal(value?.income || 0);
+    }
+
+    if (expensesTotal !== value?.expense) {
+      setExpensesTotal(value?.expense || 0);
+    }
+  }
+
+  useFocusEffect(() => {
+    recentslist();
+    getBalance();
+    getIncomeAndExpense();
+  });
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <ScrollView
@@ -65,15 +86,25 @@ export function Home() {
           }}
         >
           <S.Header>
-            <S.Photo>
-              <Text>Foto</Text>
-            </S.Photo>
+            <S.PhotoName>
+              <S.Photo>
+                <Text>Teste</Text>
+              </S.Photo>
+              <S.UserName>Bem-vindo(a), {profile?.name}</S.UserName>
+            </S.PhotoName>
 
-            <Card balance={1000} cardName="Marcelo Messias Araújo" />
+            <Card
+              balance={balance}
+              cardName={`${profile?.name} ${profile?.lastName}`}
+            />
 
             <S.FinanceValueArea>
-              <BalanceFinancial name="Receitas" value={50000} type="up" />
-              <BalanceFinancial name="Despesas" value={10000} type="down" />
+              <BalanceFinancial name="Receitas" value={incomeTotal} type="up" />
+              <BalanceFinancial
+                name="Despesas"
+                value={expensesTotal}
+                type="down"
+              />
             </S.FinanceValueArea>
           </S.Header>
         </View>
@@ -93,19 +124,33 @@ export function Home() {
             flex: 1,
           }}
         >
-          {ListTransactions.map((item) => {
-            return (
-              <Transaction
-                key={item.id}
-                category={item.category}
-                date={item.date}
-                name={item.name}
-                paymentType={item.paymentType}
-                value={item.value}
-                transactionType={item.transactionType}
-              />
-            );
-          })}
+          {recentsData?.length ? (
+            recentsData?.map((item) => {
+              return (
+                <Transaction
+                  key={item.id}
+                  category={item.category}
+                  created_at={item.created_at}
+                  name={item.name}
+                  paymentType={item.paymentType}
+                  value={item.value}
+                  transactionType={item.transactionType}
+                />
+              );
+            })
+          ) : (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ fontSize: 13 }}>
+                Você não possui nenhuma transação registrada
+              </Text>
+            </View>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>

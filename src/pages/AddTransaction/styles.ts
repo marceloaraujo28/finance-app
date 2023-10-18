@@ -33,9 +33,12 @@ export const Dropdown = styled.View`
 
 export const Title = styled.Text``;
 
-export const Button = styled.TouchableOpacity`
+export const Button = styled.TouchableOpacity<{
+  disabled: boolean;
+}>`
   margin-top: 10px;
   background-color: #00bfff;
+  opacity: ${(props) => (props.disabled ? 0.6 : 1)};
   align-items: center;
   justify-content: center;
   padding: 10px;
