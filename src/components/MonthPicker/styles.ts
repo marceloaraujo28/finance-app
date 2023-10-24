@@ -6,6 +6,8 @@ export const Container = styled.View`
   align-items: center;
 `;
 
-export const Date = styled.Text`
-  color: #fff;
+export const Date = styled.Text<{
+  color: string;
+}>`
+  color: ${(props) => props.color};
 `;

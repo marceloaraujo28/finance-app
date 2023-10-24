@@ -13,6 +13,7 @@ import { useGetIncomeAndExpense } from "../../hooks/useGetIncomeAndExpense";
 import { useDeleteTransaction } from "../../hooks/useDeleteTransaction";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { AuthenticatedStackParamList } from "../../routes/Authenticated/screens/type";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 export function Home() {
   const navigation =
@@ -110,7 +111,7 @@ export function Home() {
           <S.Header>
             <S.PhotoName>
               <S.Photo>
-                <Text>Teste</Text>
+                <AntDesign name="user" size={20} color="#fff" />
               </S.Photo>
               <S.UserName>Bem-vindo(a), {profile?.name}</S.UserName>
             </S.PhotoName>

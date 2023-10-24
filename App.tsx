@@ -36,7 +36,4 @@ export default function App() {
   );
 }
 
-// colocar empty state nas transações
-// ajustar as imagens das categorias
-// criar um enum para traduzir as transações
 // corrigir o tamanho do valor do saldo da conta
