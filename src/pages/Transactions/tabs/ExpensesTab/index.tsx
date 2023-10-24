@@ -1,21 +1,30 @@
-import { FlatList } from "react-native";
+import { ActivityIndicator, FlatList } from "react-native";
 import { BalanceInfo } from "../components/BalanceInfo";
 import * as S from "./styles";
 import { Transaction } from "../../../../components/Transaction";
 import { useAuthContext } from "../../../../context/AuthContext";
 import { useTransactionContext } from "../../context";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { TransactionsData } from "../../../../hooks/types";
 import { useGetIncomeOrExpense } from "../../../../hooks/useGetIncomeOrExpense";
-import { useFocusEffect } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { useGetIncomeAndExpense } from "../../../../hooks/useGetIncomeAndExpense";
 import { Empty } from "../../components/Empty";
+import { useDeleteTransaction } from "../../../../hooks/useDeleteTransaction";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { AuthenticatedStackParamList } from "../../../../routes/Authenticated/screens/type";
 
 export function ExpensesTab() {
   const { session } = useAuthContext();
-  const { date } = useTransactionContext();
+  const { date, updateList, setUpdateList } = useTransactionContext();
   const [expenses, setExpenses] = useState<TransactionsData[] | undefined>();
   const [valueExpenses, setValueExpenses] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  const navigation =
+    useNavigation<
+      StackNavigationProp<AuthenticatedStackParamList, "Transactions">
+    >();
 
   async function getExpenses() {
     const expensesData = await useGetIncomeOrExpense({
@@ -24,9 +33,8 @@ export function ExpensesTab() {
       year: date.getFullYear(),
       transactiontype: "expense",
     });
-    if (JSON.stringify(expenses) !== JSON.stringify(expensesData)) {
-      setExpenses(expensesData);
-    }
+
+    setExpenses(expensesData);
   }
 
   async function calculateMonthExpenses() {
@@ -38,15 +46,30 @@ export function ExpensesTab() {
 
     const expenses = values?.expense || 0;
 
-    if (valueExpenses !== expenses) {
-      setValueExpenses(expenses);
-    }
+    setValueExpenses(expenses);
   }
 
-  useFocusEffect(() => {
-    calculateMonthExpenses();
-    getExpenses();
-  });
+  async function handleClickDelete(id: number, transactionType: string) {
+    await useDeleteTransaction(id, transactionType, session?.user.id);
+    setUpdateList(true);
+  }
+
+  async function handleClickEdit(id: number) {
+    navigation.navigate("AddTransaction", {
+      id,
+    });
+  }
+
+  useEffect(() => {
+    async function fetch() {
+      await calculateMonthExpenses();
+      await getExpenses();
+      setUpdateList(false);
+      setLoading(false);
+    }
+
+    fetch();
+  }, [date, updateList]);
 
   return (
     <S.GeralContainer>
@@ -58,23 +81,30 @@ export function ExpensesTab() {
             transactionType="expense"
           />
         </S.Header>
-        {expenses && expenses.length > 0 ? (
+        {loading && !expenses && (
+          <S.LoadingContainer>
+            <ActivityIndicator />
+          </S.LoadingContainer>
+        )}
+        {!loading && !expenses && <Empty />}
+        {expenses && expenses.length > 0 && (
           <FlatList
             data={expenses}
             keyExtractor={(item) => `${item.id}`}
             renderItem={({ item }) => (
               <Transaction
+                id={item.id}
                 category={item.category}
                 created_at={item.created_at}
                 name={item.name}
                 paymentType={item.paymentType}
                 value={item.value}
                 transactionType={item.transactionType}
+                handeClickEdit={handleClickEdit}
+                handleClickDelete={handleClickDelete}
               />
             )}
           />
-        ) : (
-          <Empty />
         )}
       </S.Content>
     </S.GeralContainer>

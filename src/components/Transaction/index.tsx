@@ -1,10 +1,19 @@
-import { Image, Text } from "react-native";
 import * as S from "./styles";
-import { ITransactions } from "./types";
+import { CategoriesInfo, ITransactions } from "./types";
 import { formatDate } from "../../utils/formatDate";
 import { formatValue } from "../../utils/formatValue";
-import { Swipeable } from "react-native-gesture-handler";
-import { View } from "react-native-animatable";
+import AntDesingIcon from "@expo/vector-icons/AntDesign";
+import EvilIIcon from "@expo/vector-icons/EvilIcons";
+import {
+  Swipeable,
+  GestureHandlerRootView,
+} from "react-native-gesture-handler";
+
+type TransactionProps = {
+  handleClickDelete: (id: number, transactionType: string) => void;
+  handeClickEdit: (id: number) => void;
+  id: number;
+} & ITransactions;
 
 export function Transaction({
   category,
@@ -13,39 +22,57 @@ export function Transaction({
   paymentType,
   value,
   transactionType,
-}: ITransactions) {
+  id,
+  handeClickEdit,
+  handleClickDelete,
+}: TransactionProps) {
   const leftSwipe = () => {
+    const onPressEdit = () => {
+      handeClickEdit(id);
+    };
+
     return (
-      <View>
-        <Text>TESTE</Text>
-      </View>
+      <S.EditStyle onPress={onPressEdit}>
+        <AntDesingIcon name="edit" size={20} color={"#fff"} />
+      </S.EditStyle>
+    );
+  };
+
+  const rigthSwipe = () => {
+    const onPressDelete = () => {
+      handleClickDelete(id, transactionType);
+    };
+
+    return (
+      <S.DeleteStyle onPress={onPressDelete}>
+        <EvilIIcon name="trash" size={25} color={"#fff"} />
+      </S.DeleteStyle>
     );
   };
 
   return (
-    <Swipeable renderLeftActions={leftSwipe}>
-      <S.RecentTransaction>
-        <S.TransactionImage>
-          <Image
-            source={{
-              uri: "https://www.educolorir.com/imagem-carrinho-de-supermercado-dl19801.jpg",
-            }}
-            style={{ width: "100%", height: "100%" }}
-          />
-        </S.TransactionImage>
-        <S.TransactionInfo>
-          <S.TransactionName>{name}</S.TransactionName>
-          <S.TransactionCategory>{`${category} | ${formatDate(
-            created_at ?? ""
-          )}`}</S.TransactionCategory>
-        </S.TransactionInfo>
-        <S.TransactionValueInfo>
-          <S.TransactionValue type={transactionType}>
-            R${formatValue(value)}
-          </S.TransactionValue>
-          <S.paymentType>{paymentType}</S.paymentType>
-        </S.TransactionValueInfo>
-      </S.RecentTransaction>
-    </Swipeable>
+    <GestureHandlerRootView>
+      <Swipeable renderLeftActions={leftSwipe} renderRightActions={rigthSwipe}>
+        <S.RecentTransaction>
+          <S.TransactionImage
+            background={CategoriesInfo[category].backgroundColor}
+          >
+            {CategoriesInfo[category].icon}
+          </S.TransactionImage>
+          <S.TransactionInfo>
+            <S.TransactionName>{name}</S.TransactionName>
+            <S.TransactionCategory>{`${
+              CategoriesInfo[category].translation
+            } | ${formatDate(created_at ?? "")}`}</S.TransactionCategory>
+          </S.TransactionInfo>
+          <S.TransactionValueInfo>
+            <S.TransactionValue type={transactionType}>
+              R${formatValue(value)}
+            </S.TransactionValue>
+            <S.paymentType>{paymentType}</S.paymentType>
+          </S.TransactionValueInfo>
+        </S.RecentTransaction>
+      </Swipeable>
+    </GestureHandlerRootView>
   );
 }

@@ -13,7 +13,7 @@ export const DatePicker = styled.View`
   width: 200px;
 `;
 
-export const Chart = styled.View`
+export const Chart = styled.TouchableOpacity`
   position: absolute;
   right: 10px;
 `;
