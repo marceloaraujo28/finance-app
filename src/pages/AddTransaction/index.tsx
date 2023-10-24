@@ -1,52 +1,48 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as S from "./styles";
 import { TextInputMask } from "react-native-masked-text";
 import { Dropdown } from "../../components/Dropdown";
-import { ICategoryItem, IPaymentMethods, ITransactionTypes } from "./types";
-import { ScrollView, Text, TextInput } from "react-native";
+import { ScrollView, Text } from "react-native";
 import { insertTable } from "./hooks/insertTable";
 import {
   Category,
+  ITransactions,
   PaymentMethod,
   Transaction,
 } from "../../components/Transaction/types";
 import { useAuthContext } from "../../context/AuthContext";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
+import { supabase } from "../../config/supabaseConfig";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { AuthenticatedStackParamList } from "../../routes/Authenticated/screens/type";
+import { categoriesArray, paymentMethods, transactionTypeArray } from "./utils";
 
-const categoriesArray: ICategoryItem[] = [
-  { id: 1, label: "Moradia", value: "Housing" },
-  { id: 2, label: "Alimentação", value: "Food" },
-  { id: 3, label: "Transporte", value: "Transportation" },
-  { id: 4, label: "Saúde", value: "Health" },
-  { id: 5, label: "Educação", value: "Education" },
-  { id: 6, label: "Lazer", value: "Leisure" },
-  { id: 6, label: "Trabalho", value: "Work" },
-  { id: 7, label: "Outros", value: "Others" },
-];
-
-const transactionTypeArray: ITransactionTypes[] = [
-  { id: 1, label: "Receita", value: "income" },
-  { id: 2, label: "Despesa", value: "expense" },
-];
-
-const paymentMethods: IPaymentMethods[] = [
-  { id: 1, label: "Dinheiro", value: "Cash" },
-  { id: 2, label: "PIX", value: "PIX" },
-  { id: 3, label: "Cartão", value: "Card" },
-  { id: 1, label: "Outros", value: "Other" },
-];
+type AddTransactionRouteProp = RouteProp<
+  AuthenticatedStackParamList,
+  "AddTransaction"
+>;
 
 export function AddTransaction() {
+  const route = useRoute<AddTransactionRouteProp>();
+  const params = route?.params;
   const { session } = useAuthContext();
   const [value, setValue] = useState("0");
+  const [oldValue, setOldValue] = useState("0");
+  const [oldTransaction, setOldTransaction] = useState<Transaction>("income");
   const [categorie, setCategorie] = useState<Category>(
     categoriesArray[0].value
   );
+  const [id, setId] = useState<number | undefined>();
   const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState<string | undefined>("");
   const [transactionType, setTransactionType] = useState<Transaction>("income");
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("Cash");
-  const disableButton = !value || !categorie || !name || !description;
+  const disableButton = !value || !categorie || !name;
+  const navigation =
+    useNavigation<
+      StackNavigationProp<AuthenticatedStackParamList, "AddTransaction">
+    >();
 
   const handleChangeCategorie = (categorie: string) => {
     setCategorie(categorie as Category);
@@ -69,6 +65,33 @@ export function AddTransaction() {
     setValue(formatted);
   };
 
+  async function getTransaction() {
+    const { data } = await supabase
+      .from("transaction")
+      .select("*")
+      .eq("id", params?.id)
+      .single();
+
+    const { category, name, paymentType, transactionType, value, description } =
+      data as ITransactions;
+
+    setDescription(description);
+    setTransactionType(transactionType);
+    setPaymentMethod(paymentType);
+    setCategorie(category), setValue(value);
+    setOldValue(value);
+    setOldTransaction(transactionType);
+    setName(name);
+    setId(params.id);
+    navigation.setParams({ id: undefined });
+  }
+
+  useEffect(() => {
+    if (params?.id) {
+      getTransaction();
+    }
+  }, []);
+
   const handleInsertData = async () => {
     await insertTable({
       value,
@@ -78,6 +101,9 @@ export function AddTransaction() {
       transactionType,
       userId: session?.user.id as string,
       description,
+      id,
+      oldValue,
+      oldTransaction,
     });
 
     setValue("0");
