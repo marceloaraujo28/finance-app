@@ -43,7 +43,7 @@ export interface ITransactions {
   transactionType: Transaction;
 }
 
-enum Categories {
+export enum Categories {
   Food = "Food",
   BarsRestaurants = "BarsRestaurants",
   Home = "Home",

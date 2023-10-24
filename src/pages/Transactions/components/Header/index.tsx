@@ -22,7 +22,7 @@ export function Header() {
   return (
     <S.Container>
       <S.DatePicker>
-        <MonthPicker date={date} onChange={setDate} />
+        <MonthPicker date={date} onChange={setDate} color="#fff" />
       </S.DatePicker>
       <S.Chart onPress={handleOnPress}>
         <MaterialIcons name="insert-chart-outlined" size={24} color="white" />

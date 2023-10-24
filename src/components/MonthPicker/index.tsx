@@ -8,9 +8,10 @@ import pt from "date-fns/locale/pt";
 type MonthPickerProps = {
   date: Date;
   onChange: (newDate: Date) => void;
+  color: string;
 };
 
-export function MonthPicker({ date, onChange }: MonthPickerProps) {
+export function MonthPicker({ date, onChange, color }: MonthPickerProps) {
   const handlePrev = () => {
     const newDate = subMonths(date, 1);
     onChange(newDate);
@@ -23,12 +24,19 @@ export function MonthPicker({ date, onChange }: MonthPickerProps) {
 
   return (
     <S.Container>
-      <AntDesign name="arrowleft" size={20} color="#fff" onPress={handlePrev} />
-      <S.Date>{format(date, "MMMM, yyyy", { locale: pt })}</S.Date>
+      <AntDesign
+        name="arrowleft"
+        size={20}
+        color={color}
+        onPress={handlePrev}
+      />
+      <S.Date color={color}>
+        {format(date, "MMMM, yyyy", { locale: pt })}
+      </S.Date>
       <AntDesign
         name="arrowright"
         size={20}
-        color="#fff"
+        color={color}
         onPress={handleNext}
       />
     </S.Container>

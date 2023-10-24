@@ -23,7 +23,7 @@ export function ExpensesTab() {
 
   const navigation =
     useNavigation<
-      StackNavigationProp<AuthenticatedStackParamList, "Transactions">
+      StackNavigationProp<AuthenticatedStackParamList, "TransactionsRoutes">
     >();
 
   async function getExpenses() {
