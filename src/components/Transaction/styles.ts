@@ -8,7 +8,9 @@ export const RecentTransaction = styled.View`
   flex-direction: row;
 `;
 
-export const TransactionImage = styled.View`
+export const TransactionImage = styled.View<{
+  background: string;
+}>`
   width: 50px;
   height: 100%;
   justify-content: center;
@@ -16,6 +18,7 @@ export const TransactionImage = styled.View`
   border-radius: 30px;
   margin-right: 10px;
   overflow: hidden;
+  background-color: ${(props) => props.background};
 `;
 
 export const TransactionInfo = styled.View`
@@ -52,4 +55,26 @@ export const TransactionValue = styled.Text<{
 export const paymentType = styled.Text`
   font-family: "Roboto_400Regular";
   font-size: 12px;
+`;
+
+export const EditStyle = styled.TouchableOpacity`
+  width: 40px;
+  height: 100%;
+  background-color: green;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+`;
+
+export const LeftContainer = styled.View`
+  flex-direction: row;
+`;
+
+export const DeleteStyle = styled.TouchableOpacity`
+  width: 40px;
+  height: 100%;
+  background-color: red;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
 `;
