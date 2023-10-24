@@ -1,18 +1,23 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Home } from "../../../pages/Home";
 import { Settings } from "../../../pages/Settings";
-import { Transactions } from "../../../pages/Transactions";
 import Octicons from "@expo/vector-icons/Octicons";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { AddTransaction } from "../../../pages/AddTransaction";
 import IconAdd from "../../../assets/add.svg";
+import { AuthenticatedStackParamList } from "./type";
+import { RouteTransactionsTabs } from "../../../pages/Transactions";
 
 export function Principal() {
-  const Tab = createBottomTabNavigator();
+  const Tab = createBottomTabNavigator<AuthenticatedStackParamList>();
 
   return (
-    <Tab.Navigator initialRouteName="Home">
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        unmountOnBlur: true,
+      }}
+    >
       <Tab.Screen
         name="Home"
         component={Home}
@@ -28,8 +33,8 @@ export function Principal() {
         }}
       />
       <Tab.Screen
-        name="Transactions"
-        component={Transactions}
+        name="TransactionsRoutes"
+        component={RouteTransactionsTabs}
         options={{
           title: "Transações",
           headerShown: false,

@@ -40,3 +40,10 @@ export const UserName = styled.Text`
   margin-left: 10px;
   flex: 1;
 `;
+
+export const LoadingContainer = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+`;

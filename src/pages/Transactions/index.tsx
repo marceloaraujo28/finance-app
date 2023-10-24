@@ -1,15 +1,33 @@
-import { SafeAreaView } from "react-native-safe-area-context";
-import { RouteTabs } from "./route";
-import { Header } from "./components/Header";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { TransactionsPage } from "./tabs";
+import { GraphScreen } from "./tabs/Graph";
 import { TransactionProvider } from "./context";
+import { TransactionsStackParamList } from "./type";
 
-export function Transactions() {
+export function RouteTransactionsTabs() {
+  const Stack = createNativeStackNavigator<TransactionsStackParamList>();
+
   return (
     <TransactionProvider>
-      <SafeAreaView style={{ flex: 1, backgroundColor: "#1749d1" }}>
-        <Header />
-        <RouteTabs />
-      </SafeAreaView>
+      <Stack.Navigator initialRouteName="TransactionsPage">
+        <Stack.Screen
+          name="TransactionsPage"
+          component={TransactionsPage}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="GraphScreen"
+          component={GraphScreen}
+          options={{
+            headerStyle: { backgroundColor: "#1749d1" },
+            headerTintColor: "#fff",
+            title: "Gráfico",
+            headerShown: true,
+          }}
+        />
+      </Stack.Navigator>
     </TransactionProvider>
   );
 }

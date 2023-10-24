@@ -1,12 +1,11 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { TransactionTab } from "../tabs/TransactionsTab";
-import { IncomeTab } from "../tabs/IncomeTab";
-import { ExpensesTab } from "../tabs/ExpensesTab";
 import { Dimensions } from "react-native";
+import { TransactionTab } from "../../tabs/TransactionsTab";
+import { IncomeTab } from "../../tabs/IncomeTab";
+import { ExpensesTab } from "../../tabs/ExpensesTab";
 
-export function RouteTabs() {
+export function TransactionRoute() {
   const Tab = createMaterialTopTabNavigator();
-
   return (
     <Tab.Navigator
       initialRouteName="TransactionsTab"
@@ -20,6 +19,7 @@ export function RouteTabs() {
           color: "white",
         },
         tabBarStyle: { backgroundColor: "#2754cf" },
+        swipeEnabled: false,
       }}
     >
       <Tab.Screen

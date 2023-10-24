@@ -1,18 +1,23 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, ActivityIndicator } from "react-native";
 import * as S from "./styles";
 import { Card } from "../../components/Card";
 import { BalanceFinancial } from "../../components/BalanceFinancial";
 import { Transaction } from "../../components/Transaction";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuthContext } from "../../context/AuthContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SearchRecentsData, searchRecents } from "./hooks/searchRecents";
-import { useFocusEffect } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { useGetBalance } from "../../hooks/useGetBalance";
-import { supabase } from "../../config/supabaseConfig";
 import { useGetIncomeAndExpense } from "../../hooks/useGetIncomeAndExpense";
+import { useDeleteTransaction } from "../../hooks/useDeleteTransaction";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { AuthenticatedStackParamList } from "../../routes/Authenticated/screens/type";
 
 export function Home() {
+  const navigation =
+    useNavigation<StackNavigationProp<AuthenticatedStackParamList, "Home">>();
+
   const [recentsData, setRecentsData] = useState<SearchRecentsData[] | null>(
     []
   );
@@ -20,22 +25,20 @@ export function Home() {
   const [balance, setBalance] = useState<string | undefined>("");
   const [incomeTotal, setIncomeTotal] = useState<number>(0);
   const [expensesTotal, setExpensesTotal] = useState<number>(0);
+  const [loading, setLoading] = useState(true);
+  const [updateList, setUpdateList] = useState(false);
 
   async function recentslist() {
     if (session?.user.id) {
       const data = await searchRecents(session.user.id);
-      if (JSON.stringify(data) !== JSON.stringify(recentsData)) {
-        setRecentsData(data);
-      }
+      setRecentsData(data);
     }
   }
 
   async function getBalance() {
     if (session?.user.id) {
       const balanceData = await useGetBalance(session.user.id);
-      if (balance !== balanceData?.balance) {
-        setBalance(balanceData?.balance);
-      }
+      setBalance(balanceData?.balance);
     }
   }
 
@@ -46,21 +49,40 @@ export function Home() {
       userId: session?.user.id,
       year: date.getFullYear(),
     });
-
-    if (incomeTotal !== value?.income) {
-      setIncomeTotal(value?.income || 0);
-    }
-
-    if (expensesTotal !== value?.expense) {
-      setExpensesTotal(value?.expense || 0);
-    }
+    setIncomeTotal(value?.income || 0);
+    setExpensesTotal(value?.expense || 0);
   }
 
-  useFocusEffect(() => {
-    recentslist();
-    getBalance();
-    getIncomeAndExpense();
-  });
+  async function handleClickDelete(id: number, transactionType: string) {
+    await useDeleteTransaction(id, transactionType, session?.user.id);
+    setUpdateList(true);
+  }
+
+  function handleClickEdit(id: number) {
+    navigation.navigate("AddTransaction", {
+      id,
+    });
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await recentslist();
+      await getBalance();
+      await getIncomeAndExpense();
+      setUpdateList(false);
+      setLoading(false);
+    };
+
+    fetchData();
+  }, [updateList]);
+
+  if (loading) {
+    return (
+      <S.LoadingContainer>
+        <ActivityIndicator />
+      </S.LoadingContainer>
+    );
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
@@ -129,12 +151,15 @@ export function Home() {
               return (
                 <Transaction
                   key={item.id}
+                  id={item.id}
                   category={item.category}
                   created_at={item.created_at}
                   name={item.name}
                   paymentType={item.paymentType}
                   value={item.value}
                   transactionType={item.transactionType}
+                  handeClickEdit={handleClickEdit}
+                  handleClickDelete={handleClickDelete}
                 />
               );
             })
