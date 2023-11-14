@@ -23,7 +23,11 @@ export function BalanceFinancial({ name, value, type }: BalanceFinancialProps) {
       </S.Icon>
       <S.Info>
         <S.Name>{name}</S.Name>
-        <S.Value type={type}>{`R$${valueToStringAndFormatted}`}</S.Value>
+        <S.Value
+          adjustsFontSizeToFit
+          numberOfLines={1}
+          type={type}
+        >{`R$${valueToStringAndFormatted}`}</S.Value>
       </S.Info>
     </S.BalanceFinancial>
   );

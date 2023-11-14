@@ -22,6 +22,7 @@ export const Icon = styled.View<{
 export const Info = styled.View`
   height: 100%;
   margin-left: 5px;
+  width: 120px;
 `;
 
 export const Name = styled.Text`

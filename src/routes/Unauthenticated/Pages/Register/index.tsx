@@ -78,68 +78,61 @@ export function Register() {
   }
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      enabled={true}
-      style={{ flex: 1 }}
-      keyboardVerticalOffset={0}
-    >
-      <SafeAreaView style={{ flex: 1, backgroundColor: "#2754cf" }}>
-        <S.WelcomeContainer animation="fadeInLeft" delay={500}>
-          <S.WelcomeText>{"Cadastre-se"}</S.WelcomeText>
-        </S.WelcomeContainer>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#2754cf" }}>
+      <S.WelcomeContainer animation="fadeInLeft" delay={500}>
+        <S.WelcomeText>{"Cadastre-se"}</S.WelcomeText>
+      </S.WelcomeContainer>
 
-        <S.RegisterForm animation="fadeInUp" delay={500}>
-          <ScrollView keyboardShouldPersistTaps="handled">
-            <S.EmailText>Nome</S.EmailText>
-            <S.EmailInput
-              placeholder="Digite seu nome"
-              selectionColor="#2754cf"
-              onChangeText={setName}
-              onBlur={() => setNameFocused(false)}
-              onFocus={() => setNameFocused(true)}
-              focusable={nameFocused}
-            />
-            <S.EmailText>Sobrenome</S.EmailText>
-            <S.EmailInput
-              placeholder="Digite sobrenome"
-              selectionColor="#2754cf"
-              onChangeText={setLastName}
-              onBlur={() => setLastNameFocused(false)}
-              onFocus={() => setLastNameFocused(true)}
-              focusable={lastNameFocused}
-            />
-            <S.EmailText>Email</S.EmailText>
-            <S.EmailInput
-              placeholder="Digite seu email"
-              selectionColor="#2754cf"
-              onChangeText={setEmail}
-              onBlur={() => setEmailFocused(false)}
-              onFocus={() => setEmailFocused(true)}
-              focusable={emailFocused}
-            />
-            <S.PasswordText>Senha</S.PasswordText>
-            <S.PasswordInput
-              placeholder="Digite sua senha"
-              selectionColor="#2754cf"
-              secureTextEntry
-              onChangeText={setPassword}
-              onBlur={() => setPasswordFocused(false)}
-              onFocus={() => setPasswordFocused(true)}
-              focusable={passwordFocused}
-            />
-            <S.ButtonLogin onPress={signUp} disabled={disabled}>
-              <S.ButtonLoginText>Registrar</S.ButtonLoginText>
-              {loading && <ActivityIndicator style={{ marginLeft: 5 }} />}
-            </S.ButtonLogin>
-            <S.ButtonRegister onPress={handleClickLogin}>
-              <S.ButtonRegisterText>
-                Já possui uma conta? Faça um login
-              </S.ButtonRegisterText>
-            </S.ButtonRegister>
-          </ScrollView>
-        </S.RegisterForm>
-      </SafeAreaView>
-    </KeyboardAvoidingView>
+      <S.RegisterForm animation="fadeInUp" delay={500}>
+        <ScrollView keyboardShouldPersistTaps="handled">
+          <S.EmailText>Nome</S.EmailText>
+          <S.EmailInput
+            placeholder="Digite seu nome"
+            selectionColor="#2754cf"
+            onChangeText={setName}
+            onBlur={() => setNameFocused(false)}
+            onFocus={() => setNameFocused(true)}
+            focusable={nameFocused}
+          />
+          <S.EmailText>Sobrenome</S.EmailText>
+          <S.EmailInput
+            placeholder="Digite sobrenome"
+            selectionColor="#2754cf"
+            onChangeText={setLastName}
+            onBlur={() => setLastNameFocused(false)}
+            onFocus={() => setLastNameFocused(true)}
+            focusable={lastNameFocused}
+          />
+          <S.EmailText>Email</S.EmailText>
+          <S.EmailInput
+            placeholder="Digite seu email"
+            selectionColor="#2754cf"
+            onChangeText={setEmail}
+            onBlur={() => setEmailFocused(false)}
+            onFocus={() => setEmailFocused(true)}
+            focusable={emailFocused}
+          />
+          <S.PasswordText>Senha</S.PasswordText>
+          <S.PasswordInput
+            placeholder="Digite sua senha"
+            selectionColor="#2754cf"
+            secureTextEntry
+            onChangeText={setPassword}
+            onBlur={() => setPasswordFocused(false)}
+            onFocus={() => setPasswordFocused(true)}
+            focusable={passwordFocused}
+          />
+          <S.ButtonLogin onPress={signUp} disabled={disabled}>
+            <S.ButtonLoginText>Registrar</S.ButtonLoginText>
+            {loading && <ActivityIndicator style={{ marginLeft: 5 }} />}
+          </S.ButtonLogin>
+          <S.ButtonRegister onPress={handleClickLogin}>
+            <S.ButtonRegisterText>
+              Já possui uma conta? Faça um login
+            </S.ButtonRegisterText>
+          </S.ButtonRegister>
+        </ScrollView>
+      </S.RegisterForm>
+    </SafeAreaView>
   );
 }

@@ -68,6 +68,7 @@ export function ExpensesTab() {
       setLoading(false);
     }
 
+    setLoading(true);
     fetch();
   }, [date, updateList]);
 
@@ -81,7 +82,7 @@ export function ExpensesTab() {
             transactionType="expense"
           />
         </S.Header>
-        {loading && !expenses && (
+        {loading && (
           <S.LoadingContainer>
             <ActivityIndicator />
           </S.LoadingContainer>

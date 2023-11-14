@@ -1,6 +1,7 @@
 import styled from "styled-components/native";
+import * as Animatable from "react-native-animatable";
 
-export const RecentTransaction = styled.View`
+export const RecentTransaction = styled(Animatable.View)`
   height: 55px;
   margin-top: 10px;
   padding: 5px;

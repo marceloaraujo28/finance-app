@@ -1,5 +1,5 @@
 import * as S from "./styles";
-import { CategoriesInfo, ITransactions } from "./types";
+import { CategoriesInfo, ITransactions, paymentNames } from "./types";
 import { formatDate } from "../../utils/formatDate";
 import { formatValue } from "../../utils/formatValue";
 import AntDesingIcon from "@expo/vector-icons/AntDesign";
@@ -53,7 +53,7 @@ export function Transaction({
   return (
     <GestureHandlerRootView>
       <Swipeable renderLeftActions={leftSwipe} renderRightActions={rigthSwipe}>
-        <S.RecentTransaction>
+        <S.RecentTransaction delay={500} animation="fadeIn">
           <S.TransactionImage
             background={CategoriesInfo[category].backgroundColor}
           >
@@ -69,7 +69,7 @@ export function Transaction({
             <S.TransactionValue type={transactionType}>
               R${formatValue(value)}
             </S.TransactionValue>
-            <S.paymentType>{paymentType}</S.paymentType>
+            <S.paymentType>{paymentNames[paymentType]}</S.paymentType>
           </S.TransactionValueInfo>
         </S.RecentTransaction>
       </Swipeable>

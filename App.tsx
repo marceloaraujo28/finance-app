@@ -35,5 +35,3 @@ export default function App() {
     </AuthProvider>
   );
 }
-
-// corrigir o tamanho do valor do saldo da conta

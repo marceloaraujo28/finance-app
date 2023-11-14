@@ -24,7 +24,12 @@ export function BalanceInfo({
       <MaterialIcons name="attach-money" size={24} color="#777171" />
       <S.Balances>
         <S.Name>{name}</S.Name>
-        <S.Value value={Number(value)} transactionType={transactionType}>
+        <S.Value
+          adjustsFontSizeToFit
+          numberOfLines={1}
+          value={Number(value)}
+          transactionType={transactionType}
+        >
           {loading ? <ActivityIndicator /> : `R$${valueFormatted}`}
         </S.Value>
       </S.Balances>

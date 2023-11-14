@@ -23,7 +23,7 @@ export function IncomeTab() {
 
   const navigation =
     useNavigation<
-      StackNavigationProp<AuthenticatedStackParamList, "Transactions">
+      StackNavigationProp<AuthenticatedStackParamList, "TransactionsRoutes">
     >();
 
   async function getIncomes() {
@@ -65,7 +65,7 @@ export function IncomeTab() {
       setUpdateList(false);
       setLoading(false);
     }
-
+    setLoading(true);
     fetch();
   }, [date, updateList]);
 
@@ -79,7 +79,7 @@ export function IncomeTab() {
             loading={loading}
           />
         </S.Header>
-        {loading && !incomes && (
+        {loading && (
           <S.LoadingContainer>
             <ActivityIndicator />
           </S.LoadingContainer>

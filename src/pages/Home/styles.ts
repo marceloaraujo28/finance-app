@@ -19,6 +19,7 @@ export const FinanceValueArea = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  overflow: hidden;
 `;
 
 export const TitleTransaction = styled.Text`

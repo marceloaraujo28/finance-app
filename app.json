@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "financeApp",
-    "slug": "financeApp",
+    "name": "FinaControl",
+    "slug": "FinaControl",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -18,7 +18,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#1749d1"
       },
       "package": "com.marceloaraujo28.financeApp"
     },

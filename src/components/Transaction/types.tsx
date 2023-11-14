@@ -67,6 +67,12 @@ export enum Categories {
   Subscriptions = "Subscriptions",
 }
 
+export const paymentNames = {
+  Cash: "Dinheiro",
+  Card: "Cartão",
+  PIX: "Pix",
+  Other: "Outros",
+};
 export const CategoriesInfo: Record<
   Categories,
   { translation: string; icon: React.ReactNode; backgroundColor: string }

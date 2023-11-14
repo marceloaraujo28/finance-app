@@ -75,6 +75,7 @@ export function GraphScreen() {
       setLoading(false);
     }
 
+    setLoading(true);
     fetch();
   }, [date]);
 
@@ -83,7 +84,7 @@ export function GraphScreen() {
       <S.SelectDate>
         <MonthPicker date={date} onChange={setDate} color="#000" />
       </S.SelectDate>
-      {loading && !category && (
+      {loading && (
         <S.LoadingContainer>
           <ActivityIndicator color="#000" />
         </S.LoadingContainer>

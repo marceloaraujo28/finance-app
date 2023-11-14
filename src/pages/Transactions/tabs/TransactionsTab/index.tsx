@@ -81,7 +81,7 @@ export function TransactionTab() {
       setUpdateList(false);
       setLoading(false);
     }
-
+    setLoading(true);
     fetchData();
   }, [date, updateList]);
 

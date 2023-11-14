@@ -36,6 +36,8 @@ export const Title = styled.Text``;
 export const Button = styled.TouchableOpacity<{
   disabled: boolean;
 }>`
+  flex-direction: row;
+  gap: 10px;
   margin-top: 10px;
   background-color: #00bfff;
   opacity: ${(props) => (props.disabled ? 0.6 : 1)};
