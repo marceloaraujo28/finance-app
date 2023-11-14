@@ -4,14 +4,21 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import { addMonths, format, subMonths } from "date-fns";
 
 import pt from "date-fns/locale/pt";
+import { View } from "react-native";
 
 type MonthPickerProps = {
   date: Date;
   onChange: (newDate: Date) => void;
   color: string;
+  arrowLeftVisible?: boolean;
 };
 
-export function MonthPicker({ date, onChange, color }: MonthPickerProps) {
+export function MonthPicker({
+  date,
+  onChange,
+  color,
+  arrowLeftVisible = true,
+}: MonthPickerProps) {
   const handlePrev = () => {
     const newDate = subMonths(date, 1);
     onChange(newDate);
@@ -24,12 +31,17 @@ export function MonthPicker({ date, onChange, color }: MonthPickerProps) {
 
   return (
     <S.Container>
-      <AntDesign
-        name="arrowleft"
-        size={20}
-        color={color}
-        onPress={handlePrev}
-      />
+      {arrowLeftVisible ? (
+        <AntDesign
+          name="arrowleft"
+          size={20}
+          color={color}
+          onPress={handlePrev}
+        />
+      ) : (
+        <View />
+      )}
+
       <S.Date color={color}>
         {format(date, "MMMM, yyyy", { locale: pt })}
       </S.Date>

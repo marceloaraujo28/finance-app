@@ -1,27 +1,13 @@
 import styled from "styled-components/native";
 
-export const Header = styled.View`
-  height: 100px;
-  align-items: flex-end;
-  justify-content: flex-end;
+export const Container = styled.View`
   padding: 10px;
-`;
-
-export const InputContent = styled.View`
-  flex: 1;
   background-color: #fff;
-  padding: 10px;
+  flex: 1;
 `;
-
-export const Input = styled.TextInput`
-  border-width: 2px;
-  border-radius: 5px;
-  border-color: #c0c0c0;
-  background-color: #faf9f9;
-  padding: 5px 20px;
-  font-size: 17px;
-  font-family: "Roboto_400Regular";
-  color: #464444;
+export const Title = styled.Text`
+  margin-bottom: 15px;
+  font-family: "Roboto_700Bold";
 `;
 
 export const Dropdown = styled.View`
@@ -29,9 +15,12 @@ export const Dropdown = styled.View`
   border-radius: 5px;
   border-color: #c0c0c0;
   background-color: #faf9f9;
+  margin-bottom: 10px;
 `;
 
-export const Title = styled.Text``;
+export const MonthPickerContainer = styled.View`
+  margin-bottom: 10px;
+`;
 
 export const Button = styled.TouchableOpacity<{
   disabled: boolean;

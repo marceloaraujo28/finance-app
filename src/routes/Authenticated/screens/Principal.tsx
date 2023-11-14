@@ -7,6 +7,7 @@ import { AddTransaction } from "../../../pages/AddTransaction";
 import IconAdd from "../../../assets/add.svg";
 import { AuthenticatedStackParamList } from "./type";
 import { RouteTransactionsTabs } from "../../../pages/Transactions";
+import { Others } from "../../../pages/Others";
 
 export function Principal() {
   const Tab = createBottomTabNavigator<AuthenticatedStackParamList>();
@@ -67,7 +68,7 @@ export function Principal() {
       />
       <Tab.Screen
         name="Others"
-        component={Settings}
+        component={Others}
         options={{
           title: "Outros",
           headerShown: false,
@@ -84,8 +85,9 @@ export function Principal() {
         name="Settings"
         component={Settings}
         options={{
+          headerStyle: { backgroundColor: "#1749d1" },
+          headerTintColor: "#fff",
           title: "Configurações",
-          headerShown: false,
           tabBarIcon: ({ size, focused }) => (
             <Octicons
               name="gear"

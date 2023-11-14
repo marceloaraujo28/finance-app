@@ -3,7 +3,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import * as S from "./styles";
 import { TextInputMask } from "react-native-masked-text";
 import { Dropdown } from "../../components/Dropdown";
-import { ScrollView, Text } from "react-native";
+import { ActivityIndicator, ScrollView, Text } from "react-native";
 import { insertTable } from "./hooks/insertTable";
 import {
   Category,
@@ -38,6 +38,7 @@ export function AddTransaction() {
   const [description, setDescription] = useState<string | undefined>("");
   const [transactionType, setTransactionType] = useState<Transaction>("income");
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("Cash");
+  const [loading, setLoading] = useState(false);
   const disableButton = !value || !categorie || !name;
   const navigation =
     useNavigation<
@@ -93,6 +94,7 @@ export function AddTransaction() {
   }, []);
 
   const handleInsertData = async () => {
+    setLoading(true);
     await insertTable({
       value,
       category: categorie,
@@ -109,6 +111,7 @@ export function AddTransaction() {
     setValue("0");
     setName("");
     setDescription("");
+    setLoading(false);
   };
 
   return (
@@ -167,6 +170,7 @@ export function AddTransaction() {
           </S.Dropdown>
           <S.Button onPress={handleInsertData} disabled={disableButton}>
             <Text>Registrar</Text>
+            {loading && <ActivityIndicator size="small" color="#fff" />}
           </S.Button>
         </ScrollView>
       </S.InputContent>
