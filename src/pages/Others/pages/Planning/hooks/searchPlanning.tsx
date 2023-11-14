@@ -8,7 +8,7 @@ export async function searchPanning({
     .from("planning")
     .select("*")
     .eq("userId", userId)
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: true });
 
   if (error) {
     console.log("error:", error);

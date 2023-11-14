@@ -15,16 +15,22 @@ import { formatValue } from "../../../../../../utils/formatValue";
 import { useEffect, useState } from "react";
 import { getSumOneExpenses } from "./hooks/getSumOneExpense";
 import { useAuthContext } from "../../../../../../context/AuthContext";
-import { Category } from "../../../../../../components/Transaction/types";
+import {
+  CategoriesInfo,
+  Category,
+} from "../../../../../../components/Transaction/types";
+import { ActivityIndicator } from "react-native";
 
 export function PlanningCard({
   created_at,
   metaValue,
   categorie,
   handleDelete,
+  handleEdit,
   id,
 }: PlannigCardProps) {
   const [valueSpent, setValueSpent] = useState(0);
+  const [loading, setLoading] = useState(false);
   const date = new Date(created_at);
 
   const porcentagem = Math.round((valueSpent / Number(metaValue)) * 100);
@@ -47,13 +53,19 @@ export function PlanningCard({
   useEffect(() => {
     async function fetchData() {
       await getSumExpense();
+      setLoading(false);
     }
+    setLoading(true);
     fetchData();
   }, []);
 
   const leftSwipe = () => {
+    const editPlanning = () => {
+      handleEdit(id);
+    };
+
     return (
-      <S.EditStyle>
+      <S.EditStyle onPress={editPlanning}>
         <AntDesingIcon name="edit" size={20} color={"#fff"} />
       </S.EditStyle>
     );
@@ -72,19 +84,23 @@ export function PlanningCard({
   };
 
   return (
-    <S.PlanningContainer>
+    <S.PlanningContainer delay={500} animation="fadeIn">
       <GestureHandlerRootView>
         <Swipeable
           renderLeftActions={leftSwipe}
           renderRightActions={rigthSwipe}
         >
           <S.Infos>
-            <S.Bar />
+            <S.Bar
+              background={CategoriesInfo[categorie as Category].backgroundColor}
+            />
             <S.PhotoCategory>
-              <AntDesign name="apple-o" size={20} />
+              {CategoriesInfo[categorie as Category].icon}
             </S.PhotoCategory>
             <S.TitleAndDate>
-              <S.Title>{categorie}</S.Title>
+              <S.Title>
+                {CategoriesInfo[categorie as Category].translation}
+              </S.Title>
               <S.Date>{format(date, "MMMM, yyyy", { locale: pt })}</S.Date>
             </S.TitleAndDate>
             <S.ValueInfo>
@@ -97,12 +113,23 @@ export function PlanningCard({
       <S.ProgressContainer>
         <S.ProgressValueContainer>
           <S.ProgressValue>
-            Valor gasto: {formatValue(String(valueSpent))}
+            {loading ? (
+              <ActivityIndicator size={16} />
+            ) : (
+              `Valor gasto: ${formatValue(String(valueSpent))}`
+            )}
           </S.ProgressValue>
         </S.ProgressValueContainer>
         <S.ProgressBarContainer>
-          <S.ProgressBar percent={porcentagem}></S.ProgressBar>
+          <S.ProgressBar
+            delay={1000}
+            animation="fadeInLeft"
+            percent={porcentagem}
+          ></S.ProgressBar>
         </S.ProgressBarContainer>
+        <S.ProgressBarPercent percent={porcentagem}>
+          {porcentagem}%
+        </S.ProgressBarPercent>
       </S.ProgressContainer>
     </S.PlanningContainer>
   );

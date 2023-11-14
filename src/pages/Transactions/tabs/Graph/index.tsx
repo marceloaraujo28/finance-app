@@ -69,8 +69,6 @@ export function GraphScreen() {
     }
   }
 
-  console.log(loading);
-
   useEffect(() => {
     async function fetch() {
       await resultSumExpenses();

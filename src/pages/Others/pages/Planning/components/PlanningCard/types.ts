@@ -4,4 +4,5 @@ export type PlannigCardProps = {
   created_at: string;
   metaValue: string;
   handleDelete: (id: number) => void;
+  handleEdit: (id: number) => void;
 };

@@ -5,8 +5,11 @@ import * as S from "./styles";
 import { FlatList } from "react-native-gesture-handler";
 import { SearchPlanningResponse } from "./hooks/types";
 import { PlanningCard } from "./components/PlanningCard";
-import { ActivityIndicator, Text } from "react-native";
+import { ActivityIndicator, Text, View } from "react-native";
 import { deletePlanning } from "./hooks/deletePlanning";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { OthersStackParamList } from "../../types";
 
 export function Planning() {
   const { session } = useAuthContext();
@@ -15,6 +18,10 @@ export function Planning() {
     []
   );
   const [updateListPlanning, setUpdateListPlanning] = useState(false);
+  const navigation =
+    useNavigation<StackNavigationProp<OthersStackParamList, "Planning">>();
+
+  const isFocused = useIsFocused();
 
   const searchPlanningRecents = async () => {
     const data = await searchPanning({ userId: session?.user.id as string });
@@ -26,6 +33,12 @@ export function Planning() {
     setUpdateListPlanning(true);
   };
 
+  function onEdit(id: number) {
+    navigation.navigate("CreatePlanning", {
+      id,
+    });
+  }
+
   useEffect(() => {
     async function fetchData() {
       await searchPlanningRecents();
@@ -34,13 +47,17 @@ export function Planning() {
     }
     setLoading(true);
     fetchData();
-  }, [updateListPlanning]);
+  }, [updateListPlanning, isFocused]);
 
   return (
     <S.Container>
       {loading && <ActivityIndicator />}
       {!loading && !planningData?.length && (
-        <Text>Você não possui nenhum planejamento</Text>
+        <View
+          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+        >
+          <Text>Você não possui nenhum planejamento</Text>
+        </View>
       )}
       {!loading && planningData?.length ? (
         <FlatList
@@ -53,8 +70,10 @@ export function Planning() {
               categorie={item.categorie}
               metaValue={item.metaValue}
               handleDelete={onDelete}
+              handleEdit={onEdit}
             />
           )}
+          contentContainerStyle={{ gap: 10 }}
         />
       ) : null}
     </S.Container>

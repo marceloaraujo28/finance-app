@@ -39,7 +39,7 @@ export function AddTransaction() {
   const [transactionType, setTransactionType] = useState<Transaction>("income");
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("Cash");
   const [loading, setLoading] = useState(false);
-  const disableButton = !value || !categorie || !name;
+  const disableButton = value === "0" || !categorie || !name;
   const navigation =
     useNavigation<
       StackNavigationProp<AuthenticatedStackParamList, "AddTransaction">

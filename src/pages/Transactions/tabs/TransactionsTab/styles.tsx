@@ -11,7 +11,7 @@ export const Content = styled.View`
   background-color: white;
   border-radius: 15px 15px 0 0;
   overflow: hidden;
-  padding: 0px 10px;
+  padding: 0px 10px 20px 10px;
 `;
 
 export const Header = styled.View`

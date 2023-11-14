@@ -85,9 +85,7 @@ export function Principal() {
         name="Settings"
         component={Settings}
         options={{
-          headerStyle: { backgroundColor: "#1749d1" },
-          headerTintColor: "#fff",
-          title: "Configurações",
+          headerShown: false,
           tabBarIcon: ({ size, focused }) => (
             <Octicons
               name="gear"

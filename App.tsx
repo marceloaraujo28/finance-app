@@ -8,7 +8,7 @@ import {
   Roboto_500Medium,
   Roboto_700Bold,
 } from "@expo-google-fonts/roboto";
-import { ActivityIndicator, Text, View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import { AuthProvider } from "./src/context/AuthContext";
 
 export default function App() {
@@ -35,5 +35,3 @@ export default function App() {
     </AuthProvider>
   );
 }
-
-// corrigir o tamanho do valor do saldo da conta

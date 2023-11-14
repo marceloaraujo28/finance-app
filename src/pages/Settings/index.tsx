@@ -1,22 +1,40 @@
-import { TouchableOpacity } from "react-native";
-import AntDesign from "@expo/vector-icons/AntDesign";
-import { supabase } from "../../config/supabaseConfig";
-import { useAuthContext } from "../../context/AuthContext";
+import { createStackNavigator } from "@react-navigation/stack";
+import { SettingsStackParamList } from "./types";
+import { SettingsItems } from "./pages/SettingsItems";
+import { ChangeName } from "./pages/ChangeName";
+import { ChangePassword } from "./pages/ChangePassword";
 
 export function Settings() {
-  const { setSession } = useAuthContext();
-
-  const onPress = () => {
-    supabase.auth.signOut();
-    setSession(null);
-  };
+  const Stack = createStackNavigator<SettingsStackParamList>();
 
   return (
-    <TouchableOpacity
-      style={{ alignItems: "center", justifyContent: "center", flex: 1 }}
-      onPress={onPress}
-    >
-      <AntDesign name="logout" size={40} />
-    </TouchableOpacity>
+    <Stack.Navigator screenOptions={{}}>
+      <Stack.Screen
+        name="SettingsItems"
+        component={SettingsItems}
+        options={{
+          headerStyle: { backgroundColor: "#fff" },
+          headerTintColor: "#000",
+          title: "Configurações",
+          headerTitleAlign: "center",
+        }}
+      />
+      <Stack.Screen
+        name="ChangeName"
+        component={ChangeName}
+        options={{
+          title: "Alterar o nome",
+          headerTitleAlign: "center",
+        }}
+      />
+      <Stack.Screen
+        name="ChangePassword"
+        options={{
+          title: "Alterar a senha",
+          headerTitleAlign: "center",
+        }}
+        component={ChangePassword}
+      />
+    </Stack.Navigator>
   );
 }

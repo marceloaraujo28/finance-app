@@ -1,6 +1,7 @@
 import styled from "styled-components/native";
+import * as Animatable from "react-native-animatable";
 
-export const PlanningContainer = styled.View`
+export const PlanningContainer = styled(Animatable.View)`
   background-color: #fff;
   border: 1px solid #eae4e4;
   border-radius: 5px;
@@ -10,10 +11,12 @@ export const Infos = styled.View`
   padding: 5px;
 `;
 
-export const Bar = styled.View`
+export const Bar = styled.View<{
+  background: string;
+}>`
   width: 3px;
   height: 100%;
-  background-color: #000;
+  background-color: ${(props) => props.background};
 `;
 
 export const PhotoCategory = styled.View`
@@ -70,12 +73,13 @@ export const Percent = styled.Text`
   margin-right: 10px;
 `;
 
-export const ProgressBar = styled.View<{
+export const ProgressBar = styled(Animatable.View)<{
   percent: number;
 }>`
   width: ${(props) => props.percent}%;
   height: 100%;
-  background-color: #1749d1;
+  background-color: ${(props) =>
+    props.percent >= 100 ? "#FF4500" : "#1749d1"};
   align-items: flex-end;
   justify-content: center;
 `;
@@ -96,4 +100,12 @@ export const DeleteStyle = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   opacity: 0.8;
+`;
+
+export const ProgressBarPercent = styled.Text<{
+  percent: number;
+}>`
+  text-align: center;
+  font-size: 12px;
+  color: ${(props) => (props.percent > 100 ? "#FF4500" : "#000")};
 `;

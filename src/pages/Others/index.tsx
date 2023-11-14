@@ -10,7 +10,7 @@ export function Others() {
   const Stack = createStackNavigator<OthersStackParamList>();
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{}}>
       <Stack.Screen
         name="Panel"
         component={Panel}
@@ -43,7 +43,13 @@ export function Others() {
         })}
         component={Planning}
       />
-      <Stack.Screen name="Tips" component={Tips} />
+      <Stack.Screen
+        name="Tips"
+        component={Tips}
+        options={{
+          headerTitle: "Dicas",
+        }}
+      />
     </Stack.Navigator>
   );
 }

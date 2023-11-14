@@ -1,6 +1,8 @@
 export type OthersStackParamList = {
   Panel: undefined;
-  CreatePlanning: undefined;
+  CreatePlanning: {
+    id?: number;
+  };
   Planning: undefined;
   Tips: undefined;
 };

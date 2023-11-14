@@ -1,4 +1,5 @@
 import styled from "styled-components/native";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 export const Card = styled.View`
   height: 200px;
@@ -30,7 +31,7 @@ export const TextBalance = styled.Text`
 
 export const ValueBalance = styled.Text`
   font-family: "Roboto_500Medium";
-  font-size: 29px;
+  font-size: 25px;
   margin-top: 11px;
   color: #fff;
 `;

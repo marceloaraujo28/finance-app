@@ -16,7 +16,10 @@ export function Card({ balance, cardName }: CardProps) {
       <S.InfosCard>
         <S.LeftCard>
           <S.TextBalance>Saldo na Conta</S.TextBalance>
-          <S.ValueBalance>{`R$${valueFomartted}`}</S.ValueBalance>
+          <S.ValueBalance
+            adjustsFontSizeToFit
+            numberOfLines={1}
+          >{`R$${valueFomartted}`}</S.ValueBalance>
         </S.LeftCard>
         <S.RightCard>
           <ChipCard width={50} height={50} />
