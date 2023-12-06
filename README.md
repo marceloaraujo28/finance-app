@@ -7,6 +7,7 @@ The FinaControl app is an innovative mobile personal finance application develop
 <img src="assets/imgreadme/imgreadme2.png" alt="Login" width="200"/>
 <img src="assets/imgreadme/imgreadme3.png" alt="Home" width="200"/>
 <img src="assets/imgreadme/imgreadme4.png" alt="Transactions" width="200"/>
+<img src="assets/imgreadme/imgreadme7.png" alt="Planning" width="200"/>
 <img src="assets/imgreadme/imgreadme5.png" alt="add Transaction" width="200"/>
 <img src="assets/imgreadme/imgreadme6.png" alt="Planning" width="200"/>
 </div>
