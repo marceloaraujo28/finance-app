@@ -2,12 +2,14 @@
 
 The FinaControl app is an innovative mobile personal finance application developed using React Native, Typescript and Expo. For data storage and user authentication, I integrated Supabase, a powerful platform that provides a scalable database and secure authentication solutions
 
+<div style="display: flex; gap: 5px">
 <img src="assets/imgreadme/imgreadme1.png" alt="Welcome" width="200"/>
 <img src="assets/imgreadme/imgreadme2.png" alt="Login" width="200"/>
 <img src="assets/imgreadme/imgreadme3.png" alt="Home" width="200"/>
 <img src="assets/imgreadme/imgreadme4.png" alt="Transactions" width="200"/>
 <img src="assets/imgreadme/imgreadme5.png" alt="add Transaction" width="200"/>
 <img src="assets/imgreadme/imgreadme6.png" alt="Planning" width="200"/>
+</div>
 
 ## Description
 
