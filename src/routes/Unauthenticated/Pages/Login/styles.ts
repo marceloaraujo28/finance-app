@@ -3,13 +3,13 @@ import * as Animatable from "react-native-animatable";
 
 export const WelcomeContainer = styled(Animatable.View)`
   margin-top: 14%;
-  margin-bottom: 8%;
+  margin-bottom: 4%;
   padding-left: 5%;
 `;
 export const WelcomeText = styled.Text`
   font-size: 28px;
   color: #fff;
-  font-family: "Roboto_700Bold";
+  font-family: ${({ theme }) => theme.fontFamily.poppins[700]};
 `;
 
 export const LoginForm = styled(Animatable.View)`
@@ -20,31 +20,31 @@ export const LoginForm = styled(Animatable.View)`
   padding: 5%;
 `;
 export const EmailText = styled.Text`
-  font-size: 18px;
-  margin-bottom: 10px;
+  font-size: 16px;
+  font-family: ${({ theme }) => theme.fontFamily.poppins[400]};
 `;
 export const EmailInput = styled.TextInput<{
   focusable: boolean;
 }>`
-  font-family: "Roboto_400Regular";
-  font-size: 15px;
+  font-family: ${({ theme }) => theme.fontFamily.poppins[400]};
+  font-size: 12px;
   border-width: 1px;
-  padding: 2%;
+  padding: 5px 3px 3px 5px;
   border-radius: 5px;
   border-color: ${(props) => (props.focusable ? "#2754cf" : "#a1a1a1")};
   margin-bottom: 10px;
 `;
 export const PasswordText = styled.Text`
-  font-size: 18px;
-  margin-bottom: 10px;
+  font-size: 16px;
+  font-family: ${({ theme }) => theme.fontFamily.poppins[400]};
 `;
 export const PasswordInput = styled.TextInput<{
   focusable: boolean;
 }>`
-  font-family: "Roboto_400Regular";
-  font-size: 15px;
+  font-family: ${({ theme }) => theme.fontFamily.poppins[400]};
+  font-size: 12px;
   border-width: 1px;
-  padding: 2%;
+  padding: 5px 3px 3px 5px;
   border-radius: 5px;
   border-color: ${(props) => (props.focusable ? "#2754cf" : "#a1a1a1")};
 `;
@@ -59,7 +59,7 @@ export const ButtonLogin = styled.TouchableOpacity`
 `;
 export const ButtonLoginText = styled.Text`
   color: #fff;
-  font-family: "Roboto_500Medium";
+  font-family: ${({ theme }) => theme.fontFamily.poppins[500]};
   font-size: 15px;
 `;
 
@@ -69,4 +69,5 @@ export const ButtonRegister = styled.TouchableOpacity`
 `;
 export const ButtonRegisterText = styled.Text`
   color: #a1a1a1;
+  font-family: ${({ theme }) => theme.fontFamily.poppins[400]};
 `;
