@@ -16,11 +16,11 @@ export const MessageContainer = styled(Animatable.View)`
 
 export const Message = styled.Text`
   font-size: 24px;
-  font-family: "Roboto_700Bold";
+  font-family: ${({ theme }) => theme.fontFamily.poppins[700]};
   margin-bottom: 20px;
 `;
 export const Access = styled.Text`
-  font-family: "Roboto_400Regular";
+  font-family: ${({ theme }) => theme.fontFamily.poppins[400]};
   color: #a1a1a1;
 `;
 
@@ -34,6 +34,6 @@ export const ButtonText = styled.Text`
   padding: 10px 50px;
   border-radius: 50px;
   color: #fff;
-  font-family: "Roboto_500Medium";
+  font-family: ${({ theme }) => theme.fontFamily.poppins[500]};
   font-size: 18px;
 `;
